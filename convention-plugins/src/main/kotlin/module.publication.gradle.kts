@@ -9,6 +9,8 @@ plugins {
 
 publishing {
     // Configure all publications
+    group = "io.github.gaaabliz.kliz"
+    version = "1.0.0"
     publications.withType<MavenPublication> {
         // Stub javadoc.jar artifact
         artifact(tasks.register("${name}JavadocJar", Jar::class) {
@@ -18,9 +20,9 @@ publishing {
 
         // Provide artifacts information required by Maven Central
         pom {
-            name.set("Kotlin Multiplatform library template")
-            description.set("Dummy library to test deployment to Maven Central")
-            url.set("https://github.com/Kotlin/multiplatform-library-template")
+            name.set("Kliz")
+            description.set("My personal shared code lib!")
+            url.set("https://github.com/GaaabLiz/ktliz")
 
             licenses {
                 license {
@@ -30,14 +32,14 @@ publishing {
             }
             developers {
                 developer {
-                    id.set("JetBrains")
-                    name.set("JetBrains Team")
-                    organization.set("JetBrains")
+                    id.set("Gabliz")
+                    name.set("GaaabLiz")
+                    organization.set("Gabliz INC")
                     organizationUrl.set("https://www.jetbrains.com")
                 }
             }
             scm {
-                url.set("https://github.com/Kotlin/multiplatform-library-template")
+                url.set("https://github.com/GaaabLiz/ktliz")
             }
         }
     }
