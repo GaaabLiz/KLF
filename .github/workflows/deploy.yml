@@ -9,6 +9,10 @@ name: Deploy to central
 
 on: workflow_dispatch
 
+env:
+  ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPEUSERNAME }}
+  ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPEPASSWORD }}
+
 permissions:
   contents: read
 
@@ -56,4 +60,15 @@ jobs:
           -Psigning.gnupg.keyName='${{secrets.OSSRH_GPG_SECRET_KEY_ID}}'
           -PsonatypeUsername='${{secrets.OSSRH_USERNAME}}'
           -PsonatypePassword='${{secrets.OSSRH_PASSWORD}}'
-
+    - name: Verify environment variables
+      run: |
+        if [[ -z "${{ env.ORG_GRADLE_PROJECT_sonatypeUsername }}" ]]; then
+          echo "SONATYPE_USERNAME is not set."
+        else
+          echo "SONATYPE_USERNAME is set."
+        fi
+        if [[ -z "${{ env.ORG_GRADLE_PROJECT_sonatypePassword }}" ]]; then
+          echo "SONATYPE_PASSWORD is not set."
+        else
+          echo "SONATYPE_PASSWORD is set."
+        fi
