@@ -1,3 +1,6 @@
+val sonatypeUsername: String? by project
+val sonatypePassword: String? by project
+
 plugins {
     id("io.github.gradle-nexus.publish-plugin")
 }
@@ -14,8 +17,8 @@ nexusPublishing {
         sonatype {  //only for users registered in Sonatype after 24 Feb 2021
             nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-            username.set(System.getenv("ORG_GRADLE_PROJECT_SONATYPEUSERNAME") as? String ?: throw GradleScriptException("no env", Throwable("no env")))
-            password.set(System.getenv("ORG_GRADLE_PROJECT_SONATYPEPASSWORD") as? String ?: "unset")
+            username.set(sonatypeUsername)
+            password.set(sonatypePassword)
         }
     }
 }
