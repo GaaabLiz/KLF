@@ -51,3 +51,15 @@ jobs:
       env:
         ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPEUSERNAME }}
         ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPEPASSWORD }}
+    - name: Verify environment variables
+      run: |
+        if [[ -z "${{ env.ORG_GRADLE_PROJECT_sonatypeUsername }}" ]]; then
+          echo "SONATYPE_USERNAME is not set."
+        else
+          echo "SONATYPE_USERNAME is set."
+        fi
+        if [[ -z "${{ env.ORG_GRADLE_PROJECT_sonatypePassword }}" ]]; then
+          echo "SONATYPE_PASSWORD is not set."
+        else
+          echo "SONATYPE_PASSWORD is set."
+        fi
