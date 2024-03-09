@@ -50,16 +50,6 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-    - name: Gradle publish
-      uses: gradle/gradle-build-action@ce999babab2de1c4b649dc15f0ee67e6246c994f
-      with:
-        arguments: |
-          ${{ matrix.target }}
-          closeSonatypeStagingRepository
-          -Psigning.gnupg.passphrase='${{secrets.OSSRH_GPG_SECRET_KEY_PASSWORD}}'
-          -Psigning.gnupg.keyName='${{secrets.OSSRH_GPG_SECRET_KEY_ID}}'
-          -PsonatypeUsername='${{secrets.OSSRH_USERNAME}}'
-          -PsonatypePassword='${{secrets.OSSRH_PASSWORD}}'
     - name: Verify environment variables
       run: |
         if [[ -z "${{ env.ORG_GRADLE_PROJECT_sonatypeUsername }}" ]]; then
@@ -72,3 +62,14 @@ jobs:
         else
           echo "SONATYPE_PASSWORD is set."
         fi
+    - name: Gradle publish
+      uses: gradle/gradle-build-action@ce999babab2de1c4b649dc15f0ee67e6246c994f
+      with:
+        arguments: |
+          ${{ matrix.target }}
+          closeSonatypeStagingRepository
+          -Psigning.gnupg.passphrase='${{secrets.OSSRH_GPG_SECRET_KEY_PASSWORD}}'
+          -Psigning.gnupg.keyName='${{secrets.OSSRH_GPG_SECRET_KEY_ID}}'
+          -PsonatypeUsername='${{secrets.OSSRH_USERNAME}}'
+          -PsonatypePassword='${{secrets.OSSRH_PASSWORD}}'
+    
