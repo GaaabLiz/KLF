@@ -49,9 +49,12 @@ signing {
     if (project.hasProperty("signing.gnupg.keyName")) {
         //useGpgCmd()
         println("Signing has keyName. Signing...")
-        val signingKeyId: String? by project
-        val signingKey: String? by project
-        val signingPassword: String? by project
+        val signingKeyId: String? = System.getenv("ORG_GRADLE_PROJECT_SIGNINGKEYID")
+        val signingKey: String? = System.getenv("ORG_GRADLE_PROJECT_SIGNINGKEY")
+        val signingPassword: String? = System.getenv("ORG_GRADLE_PROJECT_SIGNINGPASSWORD")
+        println("signingKeyId -> " + signingKeyId != null)
+        println("signingKey -> " + signingKey != null)
+        println("signingPassword -> " + signingPassword != null)
         useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
         sign(publishing.publications)
     } else {
