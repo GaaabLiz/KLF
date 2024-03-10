@@ -50,6 +50,6 @@ signing {
         useGpgCmd()
         sign(publishing.publications)
     } else {
-        error("No signing.gnupg.keyName property!")
+        println("No signing.gnupg.keyName property!")
     }
 }
