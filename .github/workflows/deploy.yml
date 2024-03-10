@@ -12,6 +12,9 @@ on: workflow_dispatch
 env:
   ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPEUSERNAME }}
   ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.ORG_GRADLE_PROJECT_SONATYPEPASSWORD }}
+  ORG_GRADLE_PROJECT_SIGNINGKEYID: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEYID }}
+  ORG_GRADLE_PROJECT_SIGNINGKEY: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
+  ORG_GRADLE_PROJECT_SIGNINGPASSWORD: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
 
 permissions:
   contents: read
@@ -68,8 +71,6 @@ jobs:
         arguments: |
           ${{ matrix.target }}
           closeSonatypeStagingRepository
-          -Psigning.gnupg.executable=gpg
-          -Psigning.gnupg.useLegacyGpg=true
           -Psigning.gnupg.passphrase='${{secrets.OSSRH_GPG_SECRET_KEY_PASSWORD}}'
           -Psigning.gnupg.keyName='${{secrets.OSSRH_GPG_SECRET_KEY_ID}}'
           -PsonatypeUsername='${{secrets.OSSRH_USERNAME}}'

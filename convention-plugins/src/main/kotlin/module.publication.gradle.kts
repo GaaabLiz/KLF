@@ -47,7 +47,12 @@ publishing {
 
 signing {
     if (project.hasProperty("signing.gnupg.keyName")) {
-        useGpgCmd()
+        //useGpgCmd()
+        println("Signing has keyName. Signing...")
+        val signingKeyId: String? by project
+        val signingKey: String? by project
+        val signingPassword: String? by project
+        useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
         sign(publishing.publications)
     } else {
         println("No signing.gnupg.keyName property!")
