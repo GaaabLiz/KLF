@@ -31,6 +31,7 @@ kotlin {
                 implementation(compose.components.resources)
                 implementation(compose.components.uiToolingPreview)
                 implementation(compose.materialIconsExtended)
+                implementation(libs.compose.ui.tooling.preview)
                 implementation(libs.kotlinx.coroutines.core)
             }
         }
@@ -41,14 +42,16 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation(libs.compose.ui.tooling)
                 implementation(libs.compose.ui.tooling.preview)
+                implementation(compose.components.uiToolingPreview)
             }
         }
         val jvmMain by getting {
             dependencies {
                 implementation(libs.logback.classic)
-                implementation(compose.desktop.currentOs)
                 implementation(compose.desktop.common)
+                implementation(libs.compose.ui.tooling.preview)
             }
         }
     }
@@ -59,5 +62,11 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 }
