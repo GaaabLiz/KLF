@@ -5,6 +5,7 @@ kotlinxCoroutinesCore = "1.8.0"
 nexus-publish = "2.0.0-rc-1"
 android-minSdk = "24"
 android-compileSdk = "33"
+apache-commons = "3.12.0"
 compose = "1.6.2"
 compose-plugin = "1.6.0"
 ktor = "2.3.9"
@@ -17,6 +18,7 @@ nexus-publish = { module = "io.github.gradle-nexus.publish-plugin:io.github.grad
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 logback-classic = { module = "ch.qos.logback:logback-classic",  version.ref = "logback-classic"}
+apache-commons = { module = "org.apache.commons:commons-lang3",  version.ref = "apache-commons"}
 
 [plugins]
 androidLibrary = { id = "com.android.library", version.ref = "agp" }

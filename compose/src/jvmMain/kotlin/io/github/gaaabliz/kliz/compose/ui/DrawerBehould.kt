@@ -1,4 +1,4 @@
-package io.github.gaaabliz.kliz.compose.components
+package io.github.gaaabliz.kliz.compose.ui
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
