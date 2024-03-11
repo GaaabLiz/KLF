@@ -10,7 +10,7 @@ plugins {
 publishing {
     // Configure all publications
     group = "io.github.gaaabliz.kliz"
-    version = "0.0.1"
+    version = "1.0.1"
     publications.withType<MavenPublication> {
         // Stub javadoc.jar artifact
         artifact(tasks.register("${name}JavadocJar", Jar::class) {
