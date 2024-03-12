@@ -10,7 +10,6 @@ import java.text.ParseException
  * Classe per la gestione degli shortcut da tastiera.
  * @author Gabriele Lizzos
  */
-@OptIn(ExperimentalComposeUiApi::class)
 object KeyboardHandler  {
 
     fun handleDateFilterShortcut(
@@ -24,7 +23,7 @@ object KeyboardHandler  {
             event.isShiftPressed &&
             event.key == Key.T &&
             event.type == KeyEventType.KeyUp -> {
-                onAction(TimeUtils.getDataToString())
+                onAction(TimeUtils.localDateToString())
                 true
             }
             event.isCtrlPressed &&

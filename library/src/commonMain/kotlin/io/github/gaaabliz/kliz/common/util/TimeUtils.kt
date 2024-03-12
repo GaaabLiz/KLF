@@ -1,7 +1,10 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package io.github.gaaabliz.kliz.common.util
 
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -11,8 +14,8 @@ import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 
 /**
- * Classe per la gestione, la formattazione e la creazione di date e orari.
- * @author Gabriele Lizzos
+ * Class with utilities for time and date.
+ * @author Gabliz
  */
 object TimeUtils {
 
@@ -20,36 +23,112 @@ object TimeUtils {
     val AMERICAN_DATE_FORMAT = SimpleDateFormat("yyyy-MM-dd")
     val BASIC_TIME_FORMAT = SimpleDateFormat("HH:mm")
 
-    fun getDataToString(): String {
-        val date: LocalDate = LocalDate.now()
-        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+    val DATE_FORMATTER_LEFT_TO_RIGHT : DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+    val DATE_FORMATTER_RIGHT_TO_LEFT: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val TIME_FORMATTER_TWO_SECTION : DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+    val TIME_FORMATTER_THREE_SECTION : DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+    val LOCAL_DATE_TIME_FORMATTER : DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")
+
+    /**
+     *  Convert a LocalDate object to a string using a custom formatter.
+     *  @param date the date to convert
+     *  @param formatter the formatter to use
+     *  @return the date as a string
+     */
+    fun localDateToString(
+        date: LocalDate = LocalDate.now(),
+        formatter: DateTimeFormatter = DATE_FORMATTER_LEFT_TO_RIGHT
+    ): String {
         return date.format(formatter)
     }
 
-    fun getHourTimeStringFromTripleStringTime(time : String) : String {
+    /**
+     * Convert a LocalTime object to a string using a custom formatter.
+     * @param time the time to convert
+     * @param formatter the formatter to use
+     * @return the time as a string
+     */
+    fun localTimeToString(
+        time: LocalTime = LocalTime.now(),
+        formatter: DateTimeFormatter = TIME_FORMATTER_TWO_SECTION
+    ): String {
+        return time.format(formatter)
+    }
+
+    /**
+     * Convert a LocalDateTime object to a string using a custom formatter.
+     * @param date the date to convert
+     * @param time the time to convert
+     * @param formatter the formatter to use
+     * @return the date and time as a string
+     */
+    fun localDateTimeToString(
+        date: LocalDate = LocalDate.now(),
+        time: LocalTime = LocalTime.now(),
+        formatter: DateTimeFormatter = LOCAL_DATE_TIME_FORMATTER
+    ): String {
+        return "${date.format(DATE_FORMATTER_LEFT_TO_RIGHT)} ${time.format(TIME_FORMATTER_TWO_SECTION)}"
+    }
+
+    /**
+     * Convert a LocalDateTime object to a string using a custom formatter.
+     * @param localDateTime the date to convert
+     * @param formatter the formatter to use
+     * @return the date and time as a string
+     */
+    fun localDateTimeToString(
+        localDateTime: LocalDateTime,
+        formatter: DateTimeFormatter = LOCAL_DATE_TIME_FORMATTER
+    ): String {
+        return localDateTime.format(formatter)
+    }
+
+    /**
+     * Get the hour from a string time in the format "HH:mm:ss"
+     * @param time the time to parse
+     * @return the hour as a string
+     */
+    fun getHourFromTripleStringTime(time : String) : String {
+        if(!time.contains(":")) {
+            throw IllegalArgumentException("The time must be in the format HH:mm:ss")
+        }
         val temp = time.split(":")
         return temp[0]
     }
 
+    /**
+     * Get the minute from a string time in the format "HH:mm:ss"
+     */
+    fun getMinuteFromTripleStringTime(time : String) : String {
+        if(!time.contains(":")) {
+            throw IllegalArgumentException("The time must be in the format HH:mm:ss")
+        }
+        val temp = time.split(":")
+        return temp[1]
+    }
+
+    /**
+     * Get the second from a string time in the format "HH:mm:ss"
+     */
+    fun getSecondFromTripleStringTime(time : String) : String {
+        if (!time.contains(":")) {
+            throw IllegalArgumentException("The time must be in the format HH:mm:ss")
+        }
+        val temp = time.split(":")
+        return temp[2]
+    }
+
+    /** Get two-section time string from java Date */
     fun getSimpleStringTimeFromDate(date : Date) : String = BASIC_TIME_FORMAT.format(date)
+
+    /** Get american date string from java Date */
     fun getAmericanStringDateFromDate(date : Date) : String = AMERICAN_DATE_FORMAT.format(date)
 
     fun subtractDaysFromDate(inputDate : Date, days : Int) : Date {
         val date = convertDateToLocalDate(inputDate)
         val newLocalDate = date?.minusDays(days.toLong())
         return convertToDateViaInstant(newLocalDate!!)!!
-    }
-
-    fun getCompleteOrarioToString(): String {
-        val time: LocalTime = LocalTime.now()
-        val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
-        return time.format(formatter)
-    }
-
-    fun getOrarioToString(): String {
-        val time: LocalTime = LocalTime.now()
-        val formatter = DateTimeFormatter.ofPattern("HH:mm")
-        return time.format(formatter)
     }
 
     fun convertAmericanDateStringToItalian(string : String) : String {

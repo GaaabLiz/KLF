@@ -1,4 +1,4 @@
-package view.component
+package io.github.gaaabliz.kliz.compose.jvm.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipArea
@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import io.github.gaaabliz.kliz.compose.common.theme.athensGray
 import io.github.gaaabliz.kliz.compose.common.theme.doveGray
 import io.github.gaaabliz.kliz.compose.common.theme.silverChalice
-import io.github.gaaabliz.kliz.compose.jvm.ui.Tooltip1
 
 enum class TextfieldType(
     val hasActionButton : Boolean = false,
