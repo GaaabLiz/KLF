@@ -27,8 +27,18 @@ object TimeUtils {
     val DATE_FORMATTER_LEFT_TO_RIGHT : DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
     val DATE_FORMATTER_RIGHT_TO_LEFT: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     val TIME_FORMATTER_TWO_SECTION : DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+    val TIME_FORMATTER_TWO_SECTION_AM_PM : DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
     val TIME_FORMATTER_THREE_SECTION : DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss")
     val LOCAL_DATE_TIME_FORMATTER : DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")
+
+    /**
+     * Get the current date/time with zone.
+     * @return the current date/time with zone
+     */
+    fun getZonedNowTime(): ZonedDateTime {
+        val z = ZoneId.of("Europe/Paris")
+        return ZonedDateTime.now(z)
+    }
 
     /**
      *  Convert a LocalDate object to a string using a custom formatter.
@@ -120,28 +130,37 @@ object TimeUtils {
     }
 
     /** Get two-section time string from java Date */
+    @Deprecated("This is the old method.")
     fun getSimpleStringTimeFromDate(date : Date) : String = BASIC_TIME_FORMAT.format(date)
 
     /** Get american date string from java Date */
+    @Deprecated("This is the old method.")
     fun getAmericanStringDateFromDate(date : Date) : String = AMERICAN_DATE_FORMAT.format(date)
 
     fun subtractDaysFromDate(inputDate : Date, days : Int) : Date {
-        val date = convertDateToLocalDate(inputDate)
+        val date = convertJavaDateToLocalDate(inputDate)
         val newLocalDate = date?.minusDays(days.toLong())
-        return convertToDateViaInstant(newLocalDate!!)!!
+        return localDateToJavaDate(newLocalDate!!)!!
     }
 
+    @Deprecated("This is the old method.")
     fun convertAmericanDateStringToItalian(string : String) : String {
         val arr = string.split("-")
         return arr[2] + "-" + arr[1] + "-" + arr[0]
     }
 
+    @Deprecated("This is the old method.")
     fun convertItalianDateStringToAmerican(string : String) : String {
         val arr = string.split("-")
         return arr[2] + "-" + arr[1] + "-" + arr[0]
     }
 
-    fun convertToDateViaInstant(dateToConvert: LocalDate): Date? {
+    /**
+     * Convert a LocalDate object to a java Date object.
+     * @param dateToConvert the date to convert
+     * @return the date as a java Date object
+     */
+    fun localDateToJavaDate(dateToConvert: LocalDate): Date? {
         return Date.from(
             dateToConvert.atStartOfDay()
                 .atZone(ZoneId.systemDefault())
@@ -149,7 +168,16 @@ object TimeUtils {
         )
     }
 
-    fun generateRandomDateBetween(startInclusive: Date, endExclusive: Date): Date {
+    /**
+     * Generate a random date between two dates.
+     * @param startInclusive the start date
+     * @param endExclusive the end date
+     * @return the random date
+     */
+    fun genRandomJavaDate(
+        startInclusive: Date = convertLocalDateToJavaDate(LocalDate.of(1970, 1, 1)),
+        endExclusive: Date = convertLocalDateToJavaDate(LocalDate.of(2022, 1, 1))
+    ): Date {
         val startMillis = startInclusive.time
         val endMillis = endExclusive.time
         val randomMillisSinceEpoch: Long = ThreadLocalRandom
@@ -158,36 +186,17 @@ object TimeUtils {
         return Date(randomMillisSinceEpoch)
     }
 
-
-    fun getOrarioToStringAmPm(): String {
-        val tempAmPn: String
-        val time: LocalTime = LocalTime.now()
-        val formatter = DateTimeFormatter.ofPattern("HH:mm")
-        val stringWithoutAmPm = time.format(formatter)
-        val arrayOfHourMinute = stringWithoutAmPm.split(':')
-        tempAmPn = if(arrayOfHourMinute[0] < 13.toString()) {
-            " AM"
-        } else {
-            " PM"
-        }
-        val defString = java.lang.StringBuilder()
-        assert(arrayOfHourMinute.size == 2)
-        val hours = arrayOfHourMinute[0]
-        val min = arrayOfHourMinute[1]
-        defString.append(hours)
-        defString.append(":")
-        defString.append(min)
-        defString.append(tempAmPn)
-        return defString.toString()
-    }
-
     fun getDateObjectFromItaString(date: String): Date = ITALIAN_DATE_FORMAT.parse(date)
     fun getDateObjectFromUsaString(date: String): Date = AMERICAN_DATE_FORMAT.parse(date)
 
-    fun convertDateToLocalDate(dateToConvert: Date): LocalDate? {
+    fun convertJavaDateToLocalDate(dateToConvert: Date): LocalDate? {
         return dateToConvert.toInstant()
             .atZone(ZoneId.systemDefault())
             .toLocalDate()
+    }
+
+    fun convertLocalDateToJavaDate(localDate : LocalDate) : Date {
+        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant())
     }
 
     fun isValidLocalTimeString(string : String) : Boolean {
@@ -201,10 +210,7 @@ object TimeUtils {
         }
     }
 
-    fun getZonedNowTime(): ZonedDateTime {
-        val z = ZoneId.of("Europe/Paris")
-        return ZonedDateTime.now(z)
-    }
+
 
 
     /*
