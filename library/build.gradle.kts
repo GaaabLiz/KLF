@@ -33,7 +33,14 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-
+                implementation(libs.timber)
+                implementation(libs.androidx.lifecycle.service)
+                implementation(libs.androidx.appcompat)
+                //implementation(libs.androidx.material)
+                implementation(libs.androidx.core.ktx)
+                //implementation(libs.android.support)
+                //implementation(libs.accompanist.placeholder.material)
+                implementation(libs.coil.compose)
             }
         }
         val jvmMain by getting {

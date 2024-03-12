@@ -29,9 +29,8 @@ kotlin {
                 implementation(compose.material)
                 implementation(compose.ui)
                 implementation(compose.components.resources)
-                implementation(compose.components.uiToolingPreview)
+                implementation(libs.compose.ui.tooling)
                 implementation(compose.materialIconsExtended)
-                implementation(libs.compose.ui.tooling.preview)
                 implementation(libs.kotlinx.coroutines.core)
             }
         }
@@ -45,6 +44,8 @@ kotlin {
                 implementation(libs.compose.ui.tooling)
                 implementation(libs.compose.ui.tooling.preview)
                 implementation(compose.components.uiToolingPreview)
+                implementation(libs.coil.compose)
+                implementation(libs.accompanist.swiperefresh)
             }
         }
         val jvmMain by getting {
