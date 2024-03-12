@@ -79,10 +79,24 @@ inline fun <T> safeCall(action: () -> Operation<T>): Operation<T> {
     }
 }
 
-class OperationException(
-    val msg:String,
-    val state:Boolean? = null,
-    val title:String? = null,
-) : Exception(msg) {
-}
 
+
+sealed class CustomOperation <T> (
+    title : String? = null,
+    data : T? = null,
+    successMessage : String? = null,
+    errorMessage:String? = null,
+)  {
+
+    data class Success <T>(
+        val title : String,
+        val successMessage : String? = null,
+        val data : T? = null,
+    ) : CustomOperation<T>(successMessage = successMessage, data = data, title = title)
+
+    data class Error <T>(
+        val title : String,
+        val errorMessage : String,
+    ) : CustomOperation<T>(title = title, errorMessage = errorMessage)
+
+}

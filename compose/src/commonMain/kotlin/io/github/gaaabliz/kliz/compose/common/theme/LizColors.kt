@@ -43,6 +43,16 @@ val radicalRed: Color = Color(0xFFFF4757)
 val red: Color = Color(0xFFFF0000)
 val uniupo: Color = Color(0xFFC30C0F)
 val totemPole: Color = Color(0xFF82080A)
+val seed = Color(0xFF55da74)
+
+/* da rinominare */
+val tealTrasparente = Color(0xFF66B3B3)
+val griginoScritte = Color(0xFFA4B0BE)
+val griginoComponenti = Color(0xFFCED7E0)
+val griginoSfondo = Color(0xFFC0C0C0)
+val grigioIcon = Color(0xFF666666)
+val malibuScuro = Color(0xFF4682B4)
+val vividTangerin = Color(0xFFFFA07A)
 
 
 

@@ -24,6 +24,7 @@ kotlin {
             dependencies {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.apache.commons)
+                implementation(libs.gson)
             }
         }
         val commonTest by getting {

@@ -2,6 +2,7 @@
 accompanistSwiperefresh = "0.25.1"
 agp = "8.0.2"
 coilCompose = "2.3.0"
+gson = "2.10"
 kotlin = "1.9.0"
 kotlinxCoroutinesCore = "1.8.0"
 nexus-publish = "2.0.0-rc-1"
@@ -41,6 +42,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 android-support = { module = "com.android.support:support-v4", version.ref = "androidx-support" }
 android-support-appcompat = { module = "com.android.support:appcompat-v7", version.ref = "androidx-support" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 nexus-publish = { module = "io.github.gradle-nexus.publish-plugin:io.github.gradle-nexus.publish-plugin.gradle.plugin", version.ref = "nexus-publish" }

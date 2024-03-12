@@ -32,6 +32,7 @@ kotlin {
                 implementation(libs.compose.ui.tooling)
                 implementation(compose.materialIconsExtended)
                 implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.apache.commons)
             }
         }
         val commonTest by getting {

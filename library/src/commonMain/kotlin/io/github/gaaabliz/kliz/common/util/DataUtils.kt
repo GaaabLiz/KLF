@@ -12,17 +12,7 @@ import kotlin.collections.ArrayList
 
 object DataUtils {
 
-    fun generateRandomId(length: Int): String {
-        val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
-        return(1..length)
-            .map { allowedChars.random() }
-            .joinToString("")
-    }
 
-    fun generateRandomStringApache( length: Int ) : String = RandomStringUtils.randomAlphanumeric(length)
-    fun generateRandomBoolean() : Boolean = (0..1).random() == 1
-    fun generateRandomInt(min: Int, max: Int) : Int = (min..max).random()
-    fun generateRandomLong(min: Long, max: Long) : Long = (min..max).random()
     fun convertMsecToSec(msec: Long): Long = (msec / 1000) % 60
     fun convertMillisecToSec(millisec: Long): Long = millisec / 1000
     fun convertMetersToKm(metri: Number): Number = (metri.toDouble()) / 1000
@@ -41,25 +31,6 @@ object DataUtils {
 
     fun convertEnumNameToDisplayName(enumName : String) : String {
         return enumName.replace("_", " ").toLowerCase().capitalize()
-    }
-
-    fun generateRandomImageUrl(imageWidth : Int , imageHeight : Int) : String {
-        val randomInt = generateRandomInt(1, 100)
-        return "https://source.unsplash.com/random/${imageWidth}x${imageHeight}?sig=${randomInt}"
-    }
-
-    fun generateRandomLocalDate() : LocalDate {
-        val minDay = LocalDate.of(1900, 1, 1).toEpochDay()
-        val maxDay = LocalDate.of(2021, 1, 1).toEpochDay()
-        val randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay)
-        return LocalDate.ofEpochDay(randomDay)
-    }
-
-    fun generateRandomLocalDateTime() : LocalDateTime {
-        val minDay = LocalDateTime.of(1900, 1, 1, 0, 0, 0).toEpochSecond(ZoneOffset.UTC)
-        val maxDay = LocalDateTime.of(2021, 1, 1, 0, 0, 0).toEpochSecond(ZoneOffset.UTC)
-        val randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay)
-        return LocalDateTime.ofEpochSecond(randomDay, 0, ZoneOffset.UTC)
     }
 
     /**
@@ -89,6 +60,19 @@ object DataUtils {
         val now = LocalTime.now()
         return "${now.hour}:${now.minute}:${now.second}"
     }
+
+    /**
+     * Check if all the boolean condition are true
+     * @return TRUE if all are true, false otherwise
+     */
+    private fun checkAllTrue(vararg b: Boolean):Boolean {
+        var status:Boolean = false;
+        for (t in b) {
+            if(!t) return false
+        }
+        return true
+    }
+
 
     /**
      * Metodo per trasformare un enum convertito in stringa in un stringa leggibile nel seguente formato
