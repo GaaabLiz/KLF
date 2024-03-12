@@ -1,4 +1,4 @@
-package io.github.gaaabliz.kliz.compose.android.ui
+package io.github.gaaabliz.kliz.compose.common.ui
 
 
 
@@ -14,12 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.gaaabliz.kliz.compose.common.theme.titanWhite
 import io.github.gaaabliz.kliz.compose.common.theme.uniupo
 
-@Preview
 @Composable
 fun AlertCard(
     text : String = "Testo di prova ".repeat(10),
