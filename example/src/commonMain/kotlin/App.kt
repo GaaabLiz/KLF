@@ -1,5 +1,4 @@
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
@@ -8,10 +7,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import io.github.gaaabliz.kliz.compose.common.ui.AlertCard
-import io.github.gaaabliz.kliz.example.generated.resources.Res
+import io.github.gaaabliz.kliz.compose.common.wip_DA_SISTEMARE.AlertCard
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
