@@ -26,7 +26,7 @@ public fun DashboardCard(
     backgroundColor : Color = Color.White,
     titleColor: Color = Color.Black,
     textTile : @Composable() () -> Unit = { Text(cardTitle, style = MaterialTheme.typography.body1, ) },
-    content: @Composable() () -> Unit
+    content: @Composable() () -> Unit = {}
 ) {
     val expanded = rememberSaveable { mutableStateOf(expandedState) }
     Card (

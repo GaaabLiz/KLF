@@ -20,3 +20,4 @@ dependencyResolutionManagement {
 rootProject.name = "kliz"
 include(":library")
 include(":compose")
+include(":example")
