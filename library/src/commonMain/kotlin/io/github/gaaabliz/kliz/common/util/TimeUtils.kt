@@ -35,7 +35,7 @@ object TimeUtils {
     fun getAmericanStringDateFromDate(date : Date) : String = AMERICAN_DATE_FORMAT.format(date)
 
     fun subtractDaysFromDate(inputDate : Date, days : Int) : Date {
-        val date = convertToLocalDateViaInstant(inputDate)
+        val date = convertDateToLocalDate(inputDate)
         val newLocalDate = date?.minusDays(days.toLong())
         return convertToDateViaInstant(newLocalDate!!)!!
     }
@@ -70,7 +70,7 @@ object TimeUtils {
         )
     }
 
-    fun generateRandomDateBetween(startInclusive: Date, endExclusive: Date): Date? {
+    fun generateRandomDateBetween(startInclusive: Date, endExclusive: Date): Date {
         val startMillis = startInclusive.time
         val endMillis = endExclusive.time
         val randomMillisSinceEpoch: Long = ThreadLocalRandom
@@ -105,13 +105,13 @@ object TimeUtils {
     fun getDateObjectFromItaString(date: String): Date = ITALIAN_DATE_FORMAT.parse(date)
     fun getDateObjectFromUsaString(date: String): Date = AMERICAN_DATE_FORMAT.parse(date)
 
-    fun convertToLocalDateViaInstant(dateToConvert: Date): LocalDate? {
+    fun convertDateToLocalDate(dateToConvert: Date): LocalDate? {
         return dateToConvert.toInstant()
             .atZone(ZoneId.systemDefault())
             .toLocalDate()
     }
 
-    fun isValidStringTime(string : String) : Boolean {
+    fun isValidLocalTimeString(string : String) : Boolean {
         return try {
             LocalTime.parse(string)
             true
@@ -122,9 +122,26 @@ object TimeUtils {
         }
     }
 
-    fun getNowTime(): ZonedDateTime {
+    fun getZonedNowTime(): ZonedDateTime {
         val z = ZoneId.of("Europe/Paris")
         return ZonedDateTime.now(z)
     }
+
+
+    /*
+    * fun getCurrentTime() : String {
+        val time = LocalDateTime.now()
+        return "${time.hour}:${time.minute}:${time.second}"
+    }
+
+    fun calcolateTimeElapsedFromString(timeStarted : String, timeEnded : String) : LocalTime {
+        val timeStartedSplit = timeStarted.split(":")
+        val timeStartedObject = LocalTime.of(timeStartedSplit[0].toInt(), timeStartedSplit[1].toInt(), timeStartedSplit[2].toInt())
+        val timeEndedSplit = timeEnded.split(":")
+        val timeEndedObject = LocalTime.of(timeEndedSplit[0].toInt(), timeEndedSplit[1].toInt(), timeEndedSplit[2].toInt())
+        val timeElapsed = timeEndedObject.minusHours(timeStartedObject.hour.toLong()).minusMinutes(timeStartedObject.minute.toLong()).minusSeconds(timeStartedObject.second.toLong())
+        return timeElapsed
+    }
+    * */
 
 }

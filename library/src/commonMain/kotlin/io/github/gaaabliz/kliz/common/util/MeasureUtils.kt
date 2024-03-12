@@ -17,6 +17,11 @@ object MeasureUtils {
     private const val VALUE_IRRIGATION_MAX = 100
     private const val VALUE_IRRIGATION_MIN = 0
 
+    fun convertMsecToSec(msec: Long): Long = (msec / 1000) % 60
+    fun convertMillisecToSec(millisec: Long): Long = millisec / 1000
+    fun convertMetersToKm(metri: Number): Number = (metri.toDouble()) / 1000
+    fun convertKmToMeters(km: Number): Number = (km.toDouble()) * 1000
+
     fun isValidTemperatureValue(value: String): Boolean {
         return try {
             val valueInt = value.toInt()

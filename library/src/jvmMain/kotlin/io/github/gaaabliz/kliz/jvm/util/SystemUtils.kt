@@ -13,6 +13,19 @@ import java.net.URLConnection
 
 object SystemUtils {
 
+    fun checkForSafeClose(
+        operationActive : Boolean,
+        logger : Logger? = null,
+        close: () -> Unit
+    ) {
+        if(operationActive) {
+            logger?.warn("Operation in progress, cannot close the software!")
+            return
+        } else {
+            close()
+        }
+    }
+
     private fun openSystemDirectory(f : File) = Desktop.getDesktop().open(f)
     fun getUserDocumentFolder() : String = System.getProperty("user.home") + "\\Documents"
 

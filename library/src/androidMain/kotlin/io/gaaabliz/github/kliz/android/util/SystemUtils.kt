@@ -3,7 +3,11 @@ package io.gaaabliz.github.kliz.android.util
 
 import android.content.Context
 import android.app.ActivityManager
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context.ACTIVITY_SERVICE
+import android.content.res.Resources
+import androidx.annotation.RawRes
 import kotlin.system.exitProcess
 
 object SystemUtils {
@@ -72,5 +76,13 @@ object SystemUtils {
             null
         }
     }
+
+    fun Context.copyToClipboard(text: CharSequence){
+        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("label",text)
+        clipboard.setPrimaryClip(clip)
+    }
+
+    fun Resources.getRawTextFile(@RawRes id: Int) = openRawResource(id).bufferedReader().use { it.readText() }
 
 }

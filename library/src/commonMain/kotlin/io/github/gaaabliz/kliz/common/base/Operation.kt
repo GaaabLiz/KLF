@@ -80,7 +80,6 @@ inline fun <T> safeCall(action: () -> Operation<T>): Operation<T> {
 }
 
 
-
 sealed class CustomOperation <T> (
     title : String? = null,
     data : T? = null,

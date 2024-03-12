@@ -1,7 +1,10 @@
 package it.gabliz.kliz.android.helper
 
+import android.content.Context
+import android.content.pm.PackageManager
 import androidx.activity.result.ActivityResultCaller
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 
 class PermissionHelper private constructor(private val activityResultCaller: ActivityResultCaller) {
     private val permissions = mutableListOf<String>()
@@ -59,5 +62,9 @@ class PermissionHelper private constructor(private val activityResultCaller: Act
     companion object {
         fun with(activityResultCaller: ActivityResultCaller): PermissionHelper =
             PermissionHelper(activityResultCaller)
+
+        fun hasPermissions(context: Context, permissions: Array<String>): Boolean = permissions.all {
+            ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
+        }
     }
 }

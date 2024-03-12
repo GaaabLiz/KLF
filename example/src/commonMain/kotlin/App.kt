@@ -7,7 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import io.github.gaaabliz.kliz.compose.common.wip_DA_SISTEMARE.AlertCard
+import io.github.gaaabliz.kliz.compose.common.ui.card.AlertCard
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

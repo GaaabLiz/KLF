@@ -1,4 +1,4 @@
-package io.github.gaaabliz.kliz.compose.common.wip_DA_SISTEMARE
+package io.github.gaaabliz.kliz.compose.common.ui.card
 
 
 import androidx.compose.foundation.clickable

@@ -12,12 +12,6 @@ import kotlin.collections.ArrayList
 
 object DataUtils {
 
-
-    fun convertMsecToSec(msec: Long): Long = (msec / 1000) % 60
-    fun convertMillisecToSec(millisec: Long): Long = millisec / 1000
-    fun convertMetersToKm(metri: Number): Number = (metri.toDouble()) / 1000
-    fun convertKmToMeters(km: Number): Number = (km.toDouble()) * 1000
-
     fun <T, S> mapTwoList(list1 : List<T>, list2 : List<S>) : Map<T, S> {
         if(list1.size != list2.size) {
             throw IllegalArgumentException("The two lists must have the same size.")

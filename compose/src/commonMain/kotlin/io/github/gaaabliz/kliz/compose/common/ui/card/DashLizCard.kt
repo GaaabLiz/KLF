@@ -1,4 +1,4 @@
-package io.github.gaaabliz.kliz.compose.common.wip_DA_SISTEMARE
+package io.github.gaaabliz.kliz.compose.common.ui.card
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
@@ -17,11 +17,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import io.github.gaaabliz.kliz.common.util.GenUtils
 
 
 @Composable
-public fun DashboardCard(
-    cardTitle:String,
+public fun DashLizCard(
+    cardTitle:String = GenUtils.generateRandomStringApache(10),
     expandedState : Boolean = true,
     backgroundColor : Color = Color.White,
     titleColor: Color = Color.Black,

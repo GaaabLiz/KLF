@@ -1,4 +1,4 @@
-package io.github.gaaabliz.kliz.compose.common.wip_DA_SISTEMARE
+package io.github.gaaabliz.kliz.compose.common.ui.card
 
 
 
@@ -8,27 +8,25 @@ import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import io.github.gaaabliz.kliz.compose.common.theme.titanWhite
-import io.github.gaaabliz.kliz.compose.common.theme.uniupo
+import io.github.gaaabliz.kliz.compose.common.model.AlertType
 
 @Composable
 fun AlertCard(
     text : String = "Testo di prova ".repeat(10),
+    alertType: AlertType = AlertType.entries.toTypedArray().random()
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp),
         elevation = 5.dp,
-        backgroundColor = titanWhite,
-        border = BorderStroke(2.dp, uniupo)
+        backgroundColor = MaterialTheme.colors.background,
+        border = BorderStroke(2.dp, alertType.color)
     ) {
         Row(
             modifier = Modifier
@@ -38,9 +36,9 @@ fun AlertCard(
         ) {
             Icon(
                 modifier = Modifier.padding(start = 12.dp, top = 12.dp, bottom = 12.dp),
-                imageVector = Icons.Filled.Warning,
+                imageVector = alertType.icon,
                 contentDescription = "",
-                tint = uniupo
+                tint = alertType.color
             )
             Column(
                 modifier = Modifier
@@ -51,7 +49,7 @@ fun AlertCard(
             ) {
                 Text(
                     text = text,
-                    color = uniupo,
+                    color = alertType.color,
                     style = MaterialTheme.typography.body1,
                     textAlign = TextAlign.Start,
                 )

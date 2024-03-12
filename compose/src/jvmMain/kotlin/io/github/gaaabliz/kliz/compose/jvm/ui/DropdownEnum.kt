@@ -127,3 +127,64 @@ public fun <E : Enum<E>> DropdownEnum(
         }
     }
 }
+
+@Composable
+fun <E : Enum<E>> DropdownEnum(
+    isOpen: Boolean,
+    operationActive : Boolean = false,
+    allowedItems : () -> List<E>,
+    getVisualizedName : (E) -> String,
+    getColor : (E) -> Color,
+    getIcon : (E) -> ImageVector,
+    onDismiss : () -> Unit,
+    onItemClicked : (item : E) -> Unit,
+) {
+    val items = allowedItems()
+    Box(
+        modifier = Modifier.padding(top = 40.dp).wrapContentSize(Alignment.TopEnd)
+    ) {
+        MaterialTheme(
+            shapes = MaterialTheme.shapes.copy(medium = RoundedCornerShape(10.dp))
+        ) {
+            DropdownMenu(
+                expanded = isOpen,
+                onDismissRequest = { onDismiss() },
+                modifier = Modifier.border(border = BorderStroke(width = 2.dp, color = MaterialTheme.colors.primary), shape = RoundedCornerShape(10.dp))
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp).clipToBounds(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    items.forEach { enum ->
+                        DropdownMenuItem(
+                            enabled = !operationActive,
+                            onClick = { onItemClicked(enum) },
+                        ) {
+                            val displayName = getVisualizedName(enum)
+                            val icon = getIcon(enum)
+                            val enabledColor = getColor(enum)
+                            val disabledColor = silverChalice
+                            val actualColor = if(!operationActive) enabledColor else disabledColor
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(horizontal = 1.dp).clipToBounds(),
+                                horizontalArrangement = Arrangement.Start,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(icon, contentDescription = null, tint = actualColor)
+                                Spacer(Modifier.width(10.dp))
+                                Text(
+                                    text = displayName,
+                                    color = actualColor,
+                                    style = MaterialTheme.typography.body1,
+                                    textAlign = TextAlign.Justify,
+                                )
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}

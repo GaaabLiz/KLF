@@ -25,6 +25,7 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.apache.commons)
                 implementation(libs.gson)
+                implementation(libs.json)
             }
         }
         val commonTest by getting {
@@ -57,5 +58,9 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
     }
 }

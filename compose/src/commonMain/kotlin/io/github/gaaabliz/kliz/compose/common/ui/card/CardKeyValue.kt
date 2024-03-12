@@ -1,4 +1,4 @@
-package io.github.gaaabliz.kliz.compose.common.wip_DA_SISTEMARE
+package io.github.gaaabliz.kliz.compose.common.ui.card
 
 
 import androidx.compose.foundation.BorderStroke
@@ -20,10 +20,10 @@ import io.github.gaaabliz.kliz.compose.common.theme.titanWhite
 
 
 @Composable
-fun CardDisplayInfo(
+fun CardKeyValue(
     key : String = "Chiave",
     value : String = "Valore",
-    backgroundColor : Color = titanWhite,
+    backgroundColor : Color = MaterialTheme.colors.background,
     borderStroke: BorderStroke = BorderStroke(1.dp, silver)
 ) {
     Card(
