@@ -95,6 +95,30 @@ object TimeUtils {
     }
 
     /**
+     * Convert a LocalDate object to a java Date object.
+     * @param dateToConvert the date to convert
+     * @return the date as a java Date object
+     */
+    fun localDateToJavaDate(dateToConvert: LocalDate): Date {
+        return Date.from(
+            dateToConvert.atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+        )
+    }
+
+    /**
+     * Convert a java Date object to a LocalDate object.
+     * @param dateToConvert the date to convert
+     * @return the date as a LocalDate object
+     */
+    fun javaDateToLocalDate(dateToConvert: Date): LocalDate {
+        return dateToConvert.toInstant()
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+    }
+
+    /**
      * Get the hour from a string time in the format "HH:mm:ss"
      * @param time the time to parse
      * @return the hour as a string
@@ -137,8 +161,14 @@ object TimeUtils {
     @Deprecated("This is the old method.")
     fun getAmericanStringDateFromDate(date : Date) : String = AMERICAN_DATE_FORMAT.format(date)
 
+    /**
+     * subtract days from a date
+     * @param inputDate the date to subtract from
+     * @param days the number of days to subtract
+     * @return the new date
+     */
     fun subtractDaysFromDate(inputDate : Date, days : Int) : Date {
-        val date = convertJavaDateToLocalDate(inputDate)
+        val date = javaDateToLocalDate(inputDate)
         val newLocalDate = date?.minusDays(days.toLong())
         return localDateToJavaDate(newLocalDate!!)!!
     }
@@ -156,27 +186,14 @@ object TimeUtils {
     }
 
     /**
-     * Convert a LocalDate object to a java Date object.
-     * @param dateToConvert the date to convert
-     * @return the date as a java Date object
-     */
-    fun localDateToJavaDate(dateToConvert: LocalDate): Date? {
-        return Date.from(
-            dateToConvert.atStartOfDay()
-                .atZone(ZoneId.systemDefault())
-                .toInstant()
-        )
-    }
-
-    /**
      * Generate a random date between two dates.
      * @param startInclusive the start date
      * @param endExclusive the end date
      * @return the random date
      */
     fun genRandomJavaDate(
-        startInclusive: Date = convertLocalDateToJavaDate(LocalDate.of(1970, 1, 1)),
-        endExclusive: Date = convertLocalDateToJavaDate(LocalDate.of(2022, 1, 1))
+        startInclusive: Date = localDateToJavaDate(LocalDate.of(1970, 1, 1)),
+        endExclusive: Date = localDateToJavaDate(LocalDate.of(2022, 1, 1))
     ): Date {
         val startMillis = startInclusive.time
         val endMillis = endExclusive.time
@@ -186,19 +203,25 @@ object TimeUtils {
         return Date(randomMillisSinceEpoch)
     }
 
+    /**
+     * Get java date object from a string date in the italian format "dd-MM-yyyy"
+     * @param date the date to convert as a string
+     * @return the date as a java Date object
+     */
     fun getDateObjectFromItaString(date: String): Date = ITALIAN_DATE_FORMAT.parse(date)
+
+    /**
+     * Get java date object from a string date in the american format "yyyy-MM-dd"
+     * @param date the date to convert as a string
+     * @return the date as a java Date object
+     */
     fun getDateObjectFromUsaString(date: String): Date = AMERICAN_DATE_FORMAT.parse(date)
 
-    fun convertJavaDateToLocalDate(dateToConvert: Date): LocalDate? {
-        return dateToConvert.toInstant()
-            .atZone(ZoneId.systemDefault())
-            .toLocalDate()
-    }
-
-    fun convertLocalDateToJavaDate(localDate : LocalDate) : Date {
-        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant())
-    }
-
+    /**
+     * Check if a string is a valid local time.
+     * @param string the string to check
+     * @return true if the string is a valid local time, false otherwise
+     */
     fun isValidLocalTimeString(string : String) : Boolean {
         return try {
             LocalTime.parse(string)
@@ -209,24 +232,4 @@ object TimeUtils {
             false
         }
     }
-
-
-
-
-    /*
-    * fun getCurrentTime() : String {
-        val time = LocalDateTime.now()
-        return "${time.hour}:${time.minute}:${time.second}"
-    }
-
-    fun calcolateTimeElapsedFromString(timeStarted : String, timeEnded : String) : LocalTime {
-        val timeStartedSplit = timeStarted.split(":")
-        val timeStartedObject = LocalTime.of(timeStartedSplit[0].toInt(), timeStartedSplit[1].toInt(), timeStartedSplit[2].toInt())
-        val timeEndedSplit = timeEnded.split(":")
-        val timeEndedObject = LocalTime.of(timeEndedSplit[0].toInt(), timeEndedSplit[1].toInt(), timeEndedSplit[2].toInt())
-        val timeElapsed = timeEndedObject.minusHours(timeStartedObject.hour.toLong()).minusMinutes(timeStartedObject.minute.toLong()).minusSeconds(timeStartedObject.second.toLong())
-        return timeElapsed
-    }
-    * */
-
 }
