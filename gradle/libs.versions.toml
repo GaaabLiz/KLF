@@ -2,6 +2,7 @@
 accompanistSwiperefresh = "0.25.1"
 agp = "8.0.2"
 coilCompose = "2.3.0"
+firebaseBom = "32.7.4"
 gson = "2.10"
 json = "20220924"
 kotlin = "1.9.0"
@@ -25,6 +26,7 @@ compose-plugin = "1.6.0"
 compose-compiler = "1.5.5"
 ktor = "2.3.9"
 logback-classic = "1.5.3"
+playServicesAuth = "21.0.0"
 timber = "5.0.1"
 uiTooling = "1.6.3"
 jetbrainsKotlinJvm = "1.8.10"
@@ -43,6 +45,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 android-support = { module = "com.android.support:support-v4", version.ref = "androidx-support" }
 android-support-appcompat = { module = "com.android.support:appcompat-v7", version.ref = "androidx-support" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 json = { module = "org.json:json", version.ref = "json" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -52,6 +55,7 @@ compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = 
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 logback-classic = { module = "ch.qos.logback:logback-classic",  version.ref = "logback-classic"}
 apache-commons = { module = "org.apache.commons:commons-lang3",  version.ref = "apache-commons"}
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 [plugins]

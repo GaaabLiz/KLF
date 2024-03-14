@@ -14,6 +14,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
 }
 
@@ -21,3 +22,4 @@ rootProject.name = "kliz"
 include(":library")
 include(":compose")
 include(":example")
+include(":firebase")
