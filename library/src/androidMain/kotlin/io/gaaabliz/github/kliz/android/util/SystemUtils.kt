@@ -85,4 +85,11 @@ object SystemUtils {
 
     fun Resources.getRawTextFile(@RawRes id: Int) = openRawResource(id).bufferedReader().use { it.readText() }
 
+    fun sleep(l: Long) {
+        try {
+            Thread.sleep(l)
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+    }
 }

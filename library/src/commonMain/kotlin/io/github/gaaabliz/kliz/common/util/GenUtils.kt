@@ -44,48 +44,4 @@ object GenUtils {
         val randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay)
         return LocalDateTime.ofEpochSecond(randomDay, 0, ZoneOffset.UTC)
     }
-
-
-    /*
-    *
-    * fun generateRandomTime() : String {
-        val hour = generateRandomIntBetween(0, 23)
-        val minute = generateRandomIntBetween(0, 59)
-        return "$hour:$minute"
-    }
-
-    fun generateRandomTimeOnlyHour() : String {
-        val hour = generateRandomIntBetween(0, 23)
-        return "$hour:00"
-    }
-
-    fun generateRandomTimeGreaterThan(int : Int) : String {
-        val hour = generateRandomIntBetween(int + 1, 23)
-        val minute = generateRandomIntBetween(0, 59)
-        return "$hour:$minute"
-    }
-
-    fun generateRandomTime(
-        minutesAllZero : Boolean = false,
-        enabledSeconds : Boolean = false,
-        hourMin : Int = 0,
-        hourMax : Int = 23,
-    ) : String {
-        val hour = generateRandomIntBetween(hourMin, hourMax)
-        val minute = if(!minutesAllZero) generateRandomIntBetween(0, 59) else "00"
-        val seconds = if(enabledSeconds) ":${generateRandomIntBetween(0, 59)}" else ""
-        return "$hour:$minute$seconds"
-    }
-
-
-    fun generateRandomDate() : String {
-        val day = generateRandomIntBetween(1, 31)
-        val month = generateRandomIntBetween(1, 12)
-        val year = generateRandomIntBetween(2020, 2030)
-        return "$year-$month-$day"
-    }
-    *
-    *  */
-
-
 }

@@ -1,17 +1,17 @@
 package io.github.gaaabliz.kliz.common.util
 
-import org.apache.commons.lang3.RandomStringUtils
 import org.apache.commons.lang3.StringUtils
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
-import java.time.ZoneOffset
-import java.util.*
-import java.util.concurrent.ThreadLocalRandom
-import kotlin.collections.ArrayList
+import java.util.Locale
 
 object DataUtils {
 
+    /**
+     * Map two list in a map
+     * @param list1 the first list
+     * @param list2 the second list
+     * @return a map with the first list as key and the second list as value
+     * @throws IllegalArgumentException if the two lists have different size
+     */
     fun <T, S> mapTwoList(list1 : List<T>, list2 : List<S>) : Map<T, S> {
         if(list1.size != list2.size) {
             throw IllegalArgumentException("The two lists must have the same size.")
@@ -23,36 +23,19 @@ object DataUtils {
         return map
     }
 
-    fun convertEnumNameToDisplayName(enumName : String) : String {
-        return enumName.replace("_", " ").toLowerCase().capitalize()
-    }
-
     /**
-     * Calcolate the time elapsed between two string time set in the format "HH:mm:ss"
+     * Convert a multi-word enum string to a display name
+     * @param enumName the enum string
+     * @return the display name
      *
-     * @param timeStarted the time started
-     * @param timeEnded the time ended
-     * @return a LocalTime object with the time elapsed
+     * Example: HOME_SECONDARY -> Home Secondary
      */
-    fun calcolateTimeElapsedFromString(timeStarted: String, timeEnded: String): LocalTime {
-        val timeStartedSplit = timeStarted.split(":")
-        val timeStartedObject =
-            LocalTime.of(timeStartedSplit[0].toInt(), timeStartedSplit[1].toInt(), timeStartedSplit[2].toInt())
-        val timeEndedSplit = timeEnded.split(":")
-        val timeEndedObject =
-            LocalTime.of(timeEndedSplit[0].toInt(), timeEndedSplit[1].toInt(), timeEndedSplit[2].toInt())
-        return timeEndedObject.minusHours(timeStartedObject.hour.toLong())
-            .minusMinutes(timeStartedObject.minute.toLong()).minusSeconds(timeStartedObject.second.toLong())
-    }
-
-    fun getSimpleInvDateString() : String {
-        val now = LocalDate.now()
-        return "${now.year}-${now.monthValue}-${now.dayOfMonth}"
-    }
-
-    fun getSimpleTimeString() : String {
-        val now = LocalTime.now()
-        return "${now.hour}:${now.minute}:${now.second}"
+    @Deprecated("Use adjustEnumString instead", ReplaceWith("adjustEnumString(enumName)"))
+    fun convertEnumNameToDisplayName(enumName : String) : String {
+        return enumName
+            .replace("_", " ")
+            .lowercase(Locale.getDefault())
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
     }
 
     /**
@@ -67,12 +50,11 @@ object DataUtils {
         return true
     }
 
-
     /**
-     * Metodo per trasformare un enum convertito in stringa in un stringa leggibile nel seguente formato
-     * "VARIABILE_ENUM" -> "Variabile Enum"
-     * @param oldString String vecchia stringa da convertire
-     * @return String la nuova stringa convertita
+     * Convert a multi-word enum string to a display name:
+     * @param oldString the enum string
+     * @return the display name
+     * Example: HOME_SECONDARY -> Home Secondary
      */
     fun adjustEnumString(oldString: String): String {
         /* Sovrascrivo tutti gli underscore con degli spazi */
@@ -105,6 +87,13 @@ object DataUtils {
         return StringUtils.removeEnd(newString, " ")
     }
 
+    /**
+     * Create a list with the input list and the input element.
+     * If the input list is null, the method will return a list with only the input element.
+     * @param listSource the input list
+     * @param elementToAdd the input element
+     * @return a list with the input list and the input element
+     */
     fun <T> addElementToImmutableList(listSource: List<T>?, elementToAdd: T): List<T?> {
         return if(listSource != null) {
             /* Aggiungo nella vecchia lista quelli sorgente */

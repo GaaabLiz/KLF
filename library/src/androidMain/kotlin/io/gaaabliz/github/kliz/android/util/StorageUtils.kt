@@ -6,6 +6,7 @@ import android.os.Environment
 import android.os.StatFs
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 
 /**
  * Classe contenente funzioni di utilità per quanto riguarda la memoria.
@@ -34,6 +35,16 @@ class UtilityStorage {
                 outputStream.close()
             } catch (e: java.lang.Exception) {
                 e.printStackTrace()
+            }
+        }
+
+        fun writeInternalFile(context: Context, fileName: String, fileContents: String) {
+            context.applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE).use {
+                try {
+                    it.write(fileContents.toByteArray())
+                }catch (e: IOException) {
+                    e.printStackTrace()
+                }
             }
         }
 
