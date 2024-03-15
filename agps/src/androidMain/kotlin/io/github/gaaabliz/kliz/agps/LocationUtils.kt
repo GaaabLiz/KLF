@@ -1,21 +1,19 @@
 package io.github.gaaabliz.kliz.agps
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
-import androidx.core.app.ActivityCompat
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.R
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import io.github.gaaabliz.kliz.common.base.OperationException
+import java.io.IOException
 
 object LocationUtils {
 
-    // TODO : sistemare questo file con quello di upofood
-
-    lateinit var fusedLocationClient: FusedLocationProviderClient
 
     fun calcolateMeterDistance(
         start : LatLng,
@@ -45,33 +43,6 @@ object LocationUtils {
         return startLocation.distanceTo(endLocation)
     }
 
-    fun initLocation(activity : Activity) {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
-    }
-
-    @SuppressLint("MissingPermission")
-    fun getLastLocation(context: Context, onLoc : (LatLng) -> Unit) {
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            throw IllegalStateException("Location permission not granted)")
-        }
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location : Location? ->
-                if (location != null) {
-                    /*val currentLocation = LatLng.newBuilder()
-                        .setLatitude(location.latitude.toDouble())
-                        .setLongitude(location.longitude.toDouble())
-                        .build()*/
-                    val currentLocation = LatLng(location.latitude, location.longitude)
-                    onLoc(currentLocation)
-                } else {
-                    throw IllegalStateException("Location is null")
-                }
-            }
-            .addOnFailureListener{
-                throw IllegalStateException("Error getting location" + it.message)
-            }
-    }
 
     fun genRandomLocation() : LatLng {
         /*return LatLng.newBuilder()
@@ -80,5 +51,65 @@ object LocationUtils {
             .build()*/
         return LatLng(45.123456, 7.123456)
     }
+
+    fun convertCoordinateToStringAddress(
+        context: Context,
+        coordinate: LatLng
+    ):String {
+        val place:String
+        var geocodeMatches: List<Address>? = null
+
+        try {
+            geocodeMatches = Geocoder(context).getFromLocation(coordinate.latitude, coordinate.longitude, 1)
+        } catch (e: IOException) {
+            throw OperationException(e.message ?: "Unable to convert coordinates to address.")
+        }
+
+        if (!geocodeMatches.isNullOrEmpty()) {
+            place =
+                "${geocodeMatches[0].getAddressLine(0)}, ${geocodeMatches[0].getAddressLine(1)}, ${geocodeMatches[0].adminArea}"
+            return place.replace("null,", "").replace("null", "")
+        }else {
+            throw OperationException("Unable to convert coordinates to address.")
+        }
+    }
+
+    fun convertAddressToCoordinate(editTextStringAddress:String, context: Context):LatLng? {
+        val latitude : Double
+        val longitude : Double
+
+        var geocodeMatches: List<Address>? = null
+
+        try {
+            geocodeMatches = Geocoder(context).getFromLocationName(editTextStringAddress, 10)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        if (!geocodeMatches.isNullOrEmpty()) {
+            latitude = geocodeMatches[0].latitude
+            longitude = geocodeMatches[0].longitude
+            return LatLng(latitude, longitude)
+        }
+        return null
+    }
+
+    fun getRouteUrl(
+        origin: LatLng,
+        dest: LatLng,
+        directionMode: String,
+        context: Context,
+        googleMapsApiKey : String
+    ): String {
+        val strOrigin = "origin=" + origin.latitude.toString() + "," + origin.longitude
+        val strDest = "destination=" + dest.latitude.toString() + "," + dest.longitude
+        val mode = "mode=$directionMode"
+        val parameters = "$strOrigin&$strDest&$mode"
+        val output = "json"
+        return "https://maps.googleapis.com/maps/api/directions/$output?$parameters&key=$googleMapsApiKey"
+    }
+
+
+
 
 }
