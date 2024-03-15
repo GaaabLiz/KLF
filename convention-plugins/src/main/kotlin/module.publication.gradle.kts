@@ -10,7 +10,7 @@ plugins {
 publishing {
     // Configure all publications
     group = "io.github.gaaabliz.kliz"
-    version = "1.0.1"
+    version = "1.2.0"
     publications.withType<MavenPublication> {
         // Stub javadoc.jar artifact
         artifact(tasks.register("${name}JavadocJar", Jar::class) {
@@ -21,7 +21,7 @@ publishing {
         // Provide artifacts information required by Maven Central
         pom {
             name.set("Kliz")
-            description.set("My personal shared code lib!")
+            description.set("My personal shared library for Kotlin Multiplatform projects.")
             url.set("https://github.com/GaaabLiz/ktliz")
 
             licenses {

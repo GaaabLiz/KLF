@@ -7,7 +7,7 @@ plugins {
 
 allprojects {
     group = "io.github.gaaabliz.kliz"
-    version = "1.0.1"
+    version = "1.2.0"
 }
 
 nexusPublishing {
