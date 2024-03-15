@@ -33,6 +33,7 @@ kotlin {
                 implementation(compose.materialIconsExtended)
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.apache.commons)
+                //implementation(libs.androidx.navigation.compose)
             }
         }
         val commonTest by getting {
@@ -47,6 +48,7 @@ kotlin {
                 implementation(compose.components.uiToolingPreview)
                 implementation(libs.coil.compose)
                 implementation(libs.accompanist.swiperefresh)
+                implementation(libs.lottie.compose)
             }
         }
         val jvmMain by getting {

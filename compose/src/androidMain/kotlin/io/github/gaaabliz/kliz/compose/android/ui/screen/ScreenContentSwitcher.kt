@@ -1,4 +1,4 @@
-package io.github.gaaabliz.kliz.compose.android.ui
+package io.github.gaaabliz.kliz.compose.android.ui.screen
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding

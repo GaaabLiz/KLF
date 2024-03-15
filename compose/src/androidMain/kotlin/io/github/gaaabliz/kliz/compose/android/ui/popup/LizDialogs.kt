@@ -1,4 +1,4 @@
-package io.github.gaaabliz.kliz.compose.android.ui
+package io.github.gaaabliz.kliz.compose.android.ui.popup
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -8,7 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import io.github.gaaabliz.kliz.compose.common.ui.btn.BtnLiz1NoSize
+import io.github.gaaabliz.kliz.compose.common.ui.btn.BtnLiz
+import io.github.gaaabliz.kliz.compose.common.ui.utils.MODIFIER_ZERO_WIDTH_HEIGHT
 
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -28,8 +29,12 @@ fun AlertDialogYesNo(
             onDismissRequest = onDismissRequest,
             title = { Text(text = title, style = MaterialTheme.typography.h6) },
             text = { Text(text = text, style = MaterialTheme.typography.body1) },
-            confirmButton = { BtnLiz1NoSize(text = "Yes", onClick = onYes) },
-            dismissButton = { BtnLiz1NoSize(text = "No", onClick = onNo) },
+            confirmButton = {
+                BtnLiz(text = "Yes", onClick = onYes, buttonModifier = Modifier)
+            },
+            dismissButton = {
+                BtnLiz(text = "No", onClick = onNo, buttonModifier = Modifier)
+            },
             shape = RoundedCornerShape(8.dp),
             properties = DialogProperties(dismissOnClickOutside = false),
             modifier = Modifier

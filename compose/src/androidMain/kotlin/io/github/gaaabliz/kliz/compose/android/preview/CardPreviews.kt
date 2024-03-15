@@ -6,9 +6,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import io.github.gaaabliz.kliz.compose.common.model.AlertType
 import io.github.gaaabliz.kliz.compose.common.ui.card.AlertCard
 import io.github.gaaabliz.kliz.compose.common.ui.card.CardKeyValue
+import io.github.gaaabliz.kliz.compose.common.ui.card.CircleIconCard
 import io.github.gaaabliz.kliz.compose.common.ui.card.LinkCard
 import io.github.gaaabliz.kliz.compose.common.ui.card.PersonCard
 import io.github.gaaabliz.kliz.compose.common.ui.card.DashLizCard
+import io.github.gaaabliz.kliz.compose.common.ui.card.RadioAnswerCard
 
 
 @Preview
@@ -40,6 +42,22 @@ fun CardKeyValuePreview() {
 fun LinkCardPreview() {
     MaterialTheme {
         LinkCard()
+    }
+}
+
+@Preview
+@Composable
+fun CircleIconCardPreview() {
+    MaterialTheme {
+        CircleIconCard()
+    }
+}
+
+@Preview
+@Composable
+fun RadioAnswerCardPreview() {
+    MaterialTheme {
+        RadioAnswerCard()
     }
 }
 

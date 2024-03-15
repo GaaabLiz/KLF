@@ -1,4 +1,4 @@
-package io.github.gaaabliz.kliz.compose.android.ui
+package io.github.gaaabliz.kliz.compose.android.ui.image
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -104,3 +104,6 @@ fun AdvancedCoilImage(
         )
     }
 }
+
+
+

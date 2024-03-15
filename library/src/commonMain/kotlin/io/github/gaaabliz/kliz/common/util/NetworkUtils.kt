@@ -1,5 +1,7 @@
 package io.github.gaaabliz.kliz.common.util
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -20,5 +22,19 @@ object NetworkUtils {
             `in`.close()
         }
         return sb.toString()
+    }
+
+    suspend fun downloadFileFromWeb(fileUrl: String): InputStream? {
+        return try {
+            val url = URL(fileUrl)
+            return withContext(Dispatchers.IO) {
+                val connection = url.openConnection()
+                connection.connect()
+                connection.getInputStream()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 }

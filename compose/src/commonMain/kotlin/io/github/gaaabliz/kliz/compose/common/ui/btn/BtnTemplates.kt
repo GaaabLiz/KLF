@@ -15,10 +15,9 @@ fun BtnDebug(
     imageVectorIcon: ImageVector? = Icons.Default.Adb,
     onClick: () -> Unit = {}
 ) {
-    BtnLiz1(
+    BtnLiz(
         text = text,
         imageVectorIcon = imageVectorIcon,
-        size = 300.dp,
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.Blue,
             contentColor = Color.White,

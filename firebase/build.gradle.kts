@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    id("com.google.gms.google-services").version("4.4.0")
+    //id("com.google.gms.google-services").version("4.4.0")
     id("module.publication")
 }
 
@@ -26,7 +26,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-
+                implementation(project(":library"))
             }
         }
         val commonTest by getting {
@@ -36,7 +36,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(libs.play.services.auth)
+                //implementation(libs.play.services.auth)
+                implementation(libs.gson)
                 implementation(platform(libs.firebase.bom.get()))
                 implementation("com.google.firebase:firebase-auth-ktx")
                 implementation("com.google.firebase:firebase-firestore-ktx")

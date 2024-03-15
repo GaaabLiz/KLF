@@ -4,82 +4,48 @@ import android.app.NotificationManager
 import android.content.Context
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import io.gaaabliz.github.kliz.android.util.LogUtils
 
-/*
+
 abstract class BaseFcmService(
     private val logTag: String
 ) : FirebaseMessagingService() {
 
+    val logger = LogUtils.Logger(logTag)
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        addWarnLog(logTag, "NEW TOKEN RECEIVED: $token")
+        logger.warn("NEW TOKEN RECEIVED: $token")
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-
-        /* Controllo se messaggio contiene payload */
-        addDebugLog(logTag, "Nuovo messaggio FCM da: \"${remoteMessage.from}\".")
+        logger.debug("New FCM message from: \"${remoteMessage.from}\".")
         if (remoteMessage.data.isNotEmpty()) {
-            addDebugLog(logTag,"Nuovo messaggio FCM contiene payload: \"${remoteMessage.data}\".")
+            logger.debug("New FCM message contains payload: \"${remoteMessage.data}\".")
         } else {
-            addDebugLog(logTag,"Nuovo messaggio FCM non contiene payload: \"${remoteMessage.data}\".")
+            logger.debug("New FCM message doesn't contains payload: \"${remoteMessage.data}\".")
         }
+    }
 
-        /* controllo preferenze */
-        val notOk = true
-
-        /* controllo se a msg è associata notifica */
-        if(remoteMessage.notification != null && notOk) {
-
-            /* prendo informazioni allegate a notifica e stampo log */
+    protected open fun handleRemoteMessage(
+        remoteMessage: RemoteMessage,
+        hasNotificationCallback : (RemoteMessage.Notification) -> Unit,
+    ) {
+        if(remoteMessage.notification != null) {
             val not = remoteMessage.notification!!
-            val typeNotification = remoteMessage.data[NotificationFaw.ParamType.TYPE.name]
-            val slidePayload = remoteMessage.data[NotificationFaw.ParamType.SLIDE_PAYLOAD.name]
-            addDebugLog(logTag,"Nuovo messaggio contiene title notifica: \"${not.title}\".")
-            addDebugLog(logTag,"Nuovo messaggio contiene body notifica: \"${not.body}\".")
-            addDebugLog(logTag,"Nuovo messaggio contiene dato tipo notifica: \"${typeNotification}\".")
-            addDebugLog(logTag,"Nuovo messaggio contiene dato slide payload: \"${slidePayload}\".")
-
-            /* creo notifica */
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            when(typeNotification) {
-                NotificationFaw.Type.UPDATE.name -> {
-                    addDebugLog(logTag,"Nuovo messaggio contiene notifica di tipo UPDATE.")
-                    NotificationFaw.createUpdateNotification(
-                        context = this,
-                        notificationManager = notificationManager,
-                        remoteMessage = remoteMessage,
-                    )
-                }
-                NotificationFaw.Type.REMEMBER_SLIDE.name -> {
-                    addDebugLog(logTag,"Nuovo messaggio contiene notifica di tipo REMEMBER_SLIDE.")
-                    NotificationFaw.createSlideNotification(
-                        context = this,
-                        notificationManager = notificationManager,
-                        remoteMessage = remoteMessage,
-                    )
-                }
-                else -> {
-                    addDebugLog(logTag,"Nuovo messaggio contiene notifica di tipo GENERALE.")
-                    NotificationFaw.createGeneralNotification(
-                        context = this,
-                        notificationManager = notificationManager,
-                        remoteMessage = remoteMessage,
-                    )
-                }
-            }
-
-
+            logger.debug("FCM Message contains notification!!.")
+            logger.debug("FCM Message notification title: \"${not.title}\".")
+            logger.debug("FCM Message notification body: \"${not.body}\".")
+            hasNotificationCallback(not)
         } else {
-            addDebugLog(logTag,"Messaggio non contiene notifica.")
+            logger.debug("Message does not contain any notification!.")
         }
     }
 
     override fun onMessageSent(msgId: String) {
         super.onMessageSent(msgId)
+        logger.debug("New FCM sent: $msgId")
     }
 }
 
- */
