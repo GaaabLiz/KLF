@@ -16,6 +16,10 @@ object FileUtils {
     fun check(directory: File) : Boolean = if(!canReadWrite(directory)) throw IOException("Cannot read or write in selected directory.") else true
     fun easyDeleteFile(fileToDelete : File) = fileToDelete.delete()
 
+    fun readFromResources(fileName: String): String {
+        return FileUtils::class.java.getResource(fileName)?.readText() ?: ""
+    }
+
 
 
     @Deprecated(message = "", level = DeprecationLevel.WARNING)

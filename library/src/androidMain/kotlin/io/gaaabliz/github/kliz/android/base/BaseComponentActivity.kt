@@ -17,6 +17,11 @@ abstract class LizBaseComponentActivity(private val appLogTag : String) : Compon
         logger.verbose("onCreate of ${this::class.java.simpleName} called!")
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        logger.verbose("onCreate of ${this::class.java.simpleName} called!")
+    }
+
     override fun onStart() {
         super.onStart()
         logger.verbose("onStart of ${this::class.java.simpleName} called!")
@@ -58,7 +63,6 @@ abstract class LizBaseComponentActivity(private val appLogTag : String) : Compon
             }
         }
     }*/
-
 
     protected fun showLongToast(text:String) { ToastUtils.showLong(this, text) }
 

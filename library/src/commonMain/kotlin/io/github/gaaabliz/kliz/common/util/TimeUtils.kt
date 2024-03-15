@@ -2,6 +2,7 @@
 
 package io.github.gaaabliz.kliz.common.util
 
+import io.github.gaaabliz.kliz.common.util.DataUtils.toLowerAndCap
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -10,6 +11,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
+import java.time.format.TextStyle
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 
@@ -51,6 +53,21 @@ object TimeUtils {
         formatter: DateTimeFormatter = DATE_FORMATTER_LEFT_TO_RIGHT
     ): String {
         return date.format(formatter)
+    }
+
+    /**
+     * Convert a LocalDate object to a string using a custom formatter.
+     * @param localDate the date to convert
+     * @param sep the separator to use
+     * @param local the locale to use
+     * @return the date as a string
+     */
+    fun localDateToSepString(localDate: LocalDate, sep : String = " ", local : Locale = Locale.ITALY): String {
+        val dd = localDate.dayOfMonth
+        val mmTemp = localDate.month.getDisplayName(TextStyle.FULL, local)
+        val mm = toLowerAndCap(mmTemp)
+        val yyyy = localDate.year
+        return "$dd $mm $yyyy"
     }
 
     /**
@@ -232,4 +249,82 @@ object TimeUtils {
             false
         }
     }
+
+    /**
+     * Convert a localDateTime string in ISO format to a LocalDateTime object.
+     * @param isoDate the date to convert
+     * @return the date as a LocalDateTime object
+     * */
+    fun convertIsoToLocalDateTime(isoDate: String): LocalDateTime {
+        val format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        return LocalDateTime.parse(isoDate, format)
+    }
+
+    /**
+     * Convert a LocalDateTime object to a string in ISO format.
+     * @param localDateTime the date to convert
+     * @return the date as a string
+     */
+    fun convertLocalDateTimeToIso(localDateTime: LocalDateTime): String {
+        val format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        return localDateTime.format(format)
+    }
+
+    fun isLocalDateTimeBetween(dateTimeToCheck: LocalDateTime, startDateTime: LocalDateTime, endDateTime: LocalDateTime): Boolean {
+        return dateTimeToCheck.isAfter(startDateTime) && dateTimeToCheck.isBefore(endDateTime)
+    }
+
+    fun isLocalTimeBetween(dateTimeToCheck: LocalTime, startTime: LocalTime, endDateTime: LocalTime): Boolean {
+        return dateTimeToCheck.isAfter(startTime) && dateTimeToCheck.isBefore(endDateTime)
+    }
+
 }
+
+
+
+/*
+
+/**
+     * Calcolate the time elapsed between two string time set in the format "HH:mm:ss"
+     *
+     * @param timeStarted the time started
+     * @param timeEnded the time ended
+     * @return a LocalTime object with the time elapsed
+     */
+    fun calcolateTimeElapsedFromString(timeStarted: String, timeEnded: String): LocalTime {
+        val timeStartedSplit = timeStarted.split(":")
+        val timeStartedObject =
+            LocalTime.of(timeStartedSplit[0].toInt(), timeStartedSplit[1].toInt(), timeStartedSplit[2].toInt())
+        val timeEndedSplit = timeEnded.split(":")
+        val timeEndedObject =
+            LocalTime.of(timeEndedSplit[0].toInt(), timeEndedSplit[1].toInt(), timeEndedSplit[2].toInt())
+
+        return timeEndedObject.minusHours(timeStartedObject.hour.toLong())
+            .minusMinutes(timeStartedObject.minute.toLong()).minusSeconds(timeStartedObject.second.toLong())
+    }
+
+
+fun getSimpleInvDateString(): String {
+        val now = LocalDate.now()
+
+        return "${now.year}-${now.monthValue}-${now.dayOfMonth}"
+    }
+
+    fun getFormattedDateString(): String {
+        val now = LocalDate.now()
+
+        return "${now.dayOfMonth} ${now.monthValue} ${now.year}"
+    }
+
+    fun getSimpleTimeString() : String {
+        val now = LocalTime.now()
+
+        return "${now.hour}:${now.minute}:${now.second}"
+    }
+
+
+
+ */
+
+
+

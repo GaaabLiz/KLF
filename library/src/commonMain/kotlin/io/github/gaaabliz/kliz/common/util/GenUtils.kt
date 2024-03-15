@@ -3,6 +3,7 @@
 package io.github.gaaabliz.kliz.common.util
 
 import org.apache.commons.lang3.RandomStringUtils
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -21,6 +22,7 @@ object GenUtils {
     fun generateRandomBoolean() : Boolean = (0..1).random() == 1
     fun generateRandomInt(min: Int, max: Int) : Int = (min..max).random()
     fun generateRandomLong(min: Long, max: Long) : Long = (min..max).random()
+    fun generateRandomDouble(min: Double, max: Double) : Double = min + (Math.random() * (max - min))
 
     private fun generateRandomDoubleBetween(start: Double, end: Double): Double {
         return ThreadLocalRandom.current().nextDouble(start, end)
@@ -43,5 +45,13 @@ object GenUtils {
         val maxDay = LocalDateTime.of(2021, 1, 1, 0, 0, 0).toEpochSecond(ZoneOffset.UTC)
         val randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay)
         return LocalDateTime.ofEpochSecond(randomDay, 0, ZoneOffset.UTC)
+    }
+
+    fun genRandomLocalDateFromWeekDay(dayOfWeek: DayOfWeek) : LocalDate {
+        val currentDayOfWeek = LocalDate.now().dayOfWeek
+        val daysToAdd = (dayOfWeek.value - currentDayOfWeek.value + 7) % 7
+        val randomDays = ThreadLocalRandom.current().nextInt(0, 7)
+        val totalDaysToAdd = daysToAdd + randomDays
+        return LocalDate.now().plusDays(totalDaysToAdd.toLong())
     }
 }

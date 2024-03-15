@@ -19,6 +19,7 @@ object LogUtils {
         fun errorArray(message: Array<String>) = run { message.forEach { error(it) }}
         fun debugArray(message: Array<String>) = run { message.forEach { debug(it) }}
         fun debugObjArray(message: Array<Any?>) = run { message.forEach { debugObj(it) }}
+        fun <T> debugObjectList(message: List<T>) = run { message.forEach { debug(it.toString()) }}
     }
 
     fun addVerboseLog(tag: String, message: String) = Timber.tag(tag).v(message)

@@ -1,6 +1,7 @@
-package it.uniupo.cantieriapp.common.domain.model
+package io.github.gaaabliz.kliz.common.model
 
-import it.gabliz.kliz.common.util.DataUtils
+import io.github.gaaabliz.kliz.common.util.GenUtils
+
 
 data class Developer(
     val avatarId : Int,
@@ -11,7 +12,7 @@ data class Developer(
     companion object {
         fun random() : Developer {
             return Developer(
-                avatarId = DataUtils.generateRandomInt(1, 10),
+                avatarId = GenUtils.generateRandomInt(1, 10),
                 name = "Mario",
                 surname = "Rossi",
                 email = ""

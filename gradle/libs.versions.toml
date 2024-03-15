@@ -28,6 +28,9 @@ compose-plugin = "1.6.0"
 compose-compiler = "1.5.5"
 ktor = "2.3.9"
 logback-classic = "1.5.3"
+playServicesLocation = "21.2.0"
+playServicesMaps = "18.2.0"
+playServicesPlugin = "4.4.0"
 playServicesAuth = "21.0.0"
 timber = "5.0.1"
 uiTooling = "1.6.3"
@@ -60,6 +63,8 @@ compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview"
 logback-classic = { module = "ch.qos.logback:logback-classic",  version.ref = "logback-classic"}
 apache-commons = { module = "org.apache.commons:commons-lang3",  version.ref = "apache-commons"}
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 [plugins]
@@ -69,3 +74,4 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
+googlePlayServices = { id = "com.google.gms.google-services", version.ref = "playServicesPlugin" }

@@ -54,4 +54,76 @@ inline fun <T> checkIfNullExist(vararg elements: T): Boolean {
 }
 
 
+/*
+// TODO GABRI: da sistemare
+
+/**
+ * Prende ora, minuti e secondi da un LocalDateTime e li converte in un formato HH:mm:ss
+ * @receiver LocalDateTime
+ * @return String
+ */
+inline fun LocalDateTime.toProjectTime() : String {
+    val hour = if(this.hour < 10) "0${this.hour}" else "${this.hour}"
+    val minute = if(this.minute < 10) "0${this.minute}" else "${this.minute}"
+    val second = if(this.second < 10) "0${this.second}" else "${this.second}"
+    return "$hour:$minute:$second"
+}
+
+inline fun LocalTime.toStringTime(): String {
+    val hour = if(this.hour < 10) "0${this.hour}" else "${this.hour}"
+    val minute = if(this.minute < 10) "0${this.minute}" else "${this.minute}"
+    val second = if(this.second < 10) "0${this.second}" else "${this.second}"
+    return "$hour:$minute"
+}
+
+inline fun String.toLocalTime(): LocalTime {
+    val array = this.split(":")
+    return LocalTime.of(array[0].toInt(), array[1].toInt())
+}
+
+inline fun LocalDateTime.toProjectDate(): String {
+    return "${this.dayOfMonth}/${this.monthValue}/${this.year}"
+}
+
+/**
+ * Prende data e ora da un LocalDateTime e li converte in un formato dd/MM/yyyy HH:mm:ss
+ * @receiver LocalDateTime
+ * @return String
+ */
+inline fun LocalDateTime.toProjectDateTime(sep: String = " ") : String {
+    return "${this.toProjectDate()}$sep${this.toProjectTime()}"
+}
+
+inline fun LocalDateTime.toDateTimeAndDayWeek(sep: String = " ") : String {
+    return "${this.dayOfWeek}$sep${this.toProjectDate()}$sep${this.toProjectTime()}"
+}
+
+inline fun LocalDateTime.toElapsedTimeStringItaFromNow() : String {
+    val currentTime = LocalDateTime.now()
+    val hoursDiff = ChronoUnit.HOURS.between(this, currentTime)
+    val minutesDiff = ChronoUnit.MINUTES.between(this, currentTime) % 60
+    val daysDiff = ChronoUnit.DAYS.between(this, currentTime)
+
+    return when {
+        daysDiff > 0 -> {
+            val remainingHours = hoursDiff - (daysDiff * 24)
+            when {
+                remainingHours > 0 && minutesDiff > 0 ->
+                    "$daysDiff gg, $remainingHours ore e $minutesDiff min. fa"
+                remainingHours > 0 ->
+                    "$daysDiff gg e $remainingHours ore fa"
+                minutesDiff > 0 ->
+                    "$daysDiff gg e $minutesDiff min. fa"
+                else ->
+                    "$daysDiff gg fa"
+            }
+        }
+        hoursDiff > 0 -> "$hoursDiff ore e $minutesDiff min. fa"
+        minutesDiff > 0 -> "$minutesDiff min. fa"
+        else -> "Meno di un min. fa"
+    }
+}
+
+ */
+
 

@@ -1,4 +1,4 @@
-package io.gaaabliz.github.kliz.android.model
+package io.github.gaaabliz.kliz.agps
 
 enum class PlayServicesStatus {
     ACTIVE,

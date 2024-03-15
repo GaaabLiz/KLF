@@ -1,3 +1,5 @@
+@file:Suppress("RedundantNullableReturnType")
+
 package io.github.gaaabliz.kliz.common.util
 
 import org.apache.commons.lang3.StringUtils
@@ -48,6 +50,21 @@ object DataUtils {
             if(!t) return false
         }
         return true
+    }
+
+    fun <T> checkNullThrow(obj: T?, name:String): T? {
+        if(obj == null) {
+            throw IllegalArgumentException("Object $name cannot be null")
+        }
+        return obj
+    }
+
+    fun <T> limitList(list: List<T>, limit: Int): List<T> {
+        return if(list.size > limit) {
+            list.subList(0, limit)
+        } else {
+            list
+        }
     }
 
     /**
@@ -107,5 +124,14 @@ object DataUtils {
         } else {
             listOf(elementToAdd)
         }
+    }
+
+    /**
+     * Convert a string to lower case and capitalize the first letter
+     * @param string the input string
+     * @return the string in lower case with the first letter capitalized
+     */
+    fun toLowerAndCap(string: String) : String {
+        return string.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
     }
 }

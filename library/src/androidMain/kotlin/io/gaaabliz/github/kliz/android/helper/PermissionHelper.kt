@@ -1,4 +1,4 @@
-package it.gabliz.kliz.android.helper
+package io.gaaabliz.github.kliz.android.helper
 
 import android.content.Context
 import android.content.pm.PackageManager

@@ -36,9 +36,27 @@ sealed class Operation <T> (
             }
         }
 
+        fun <T> getSuccessDataFrom(
+            operation: Operation<T>,
+            onError : (String?) -> Unit,
+            onSuccess: (T?) -> Unit = {},
+        ) : T? {
+            return when(operation) {
+                is Success -> {
+                    onSuccess(operation.data)
+                    operation.data
+                }
+                is Error -> {
+                    onError(operation.errorMessage)
+                    null
+                }
+            }
+        }
 
-
-        fun <T> getSuccessDataFrom(operation: Operation<T>, onError : (String?) -> Unit,) : T? {
+        fun <T> getSuccessDataFrom(
+            operation: Operation<T>,
+            onError : (String?) -> Unit,
+        ) : T? {
             return when(operation) {
                 is Success -> operation.data
                 is Error -> {
