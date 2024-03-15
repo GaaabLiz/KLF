@@ -8,6 +8,7 @@ import android.content.ClipboardManager
 import android.content.Context.ACTIVITY_SERVICE
 import android.content.res.Resources
 import androidx.annotation.RawRes
+import io.gaaabliz.github.kliz.android.model.PlayServicesStatus
 import kotlin.system.exitProcess
 
 object SystemUtils {
@@ -92,4 +93,18 @@ object SystemUtils {
             e.printStackTrace()
         }
     }
+
+    /*fun getPlayServicesStatus(context: Context) : PlayServicesStatus {
+        val googleApiAvailability = GoogleApiAvailability.getInstance()
+        val resultCode = googleApiAvailability.isGooglePlayServicesAvailable(context)
+        if (resultCode != ConnectionResult.SUCCESS) {
+            return if (googleApiAvailability.isUserResolvableError(resultCode)) {
+                PlayServicesStatus.ERROR_BUT_USER_CAN_FIX
+            } else {
+                PlayServicesStatus.ERROR_BUT_USER_CANT_FIX
+            }
+        }
+        //logger.info("Google play service are active.")
+        return PlayServicesStatus.ACTIVE
+    }*/
 }

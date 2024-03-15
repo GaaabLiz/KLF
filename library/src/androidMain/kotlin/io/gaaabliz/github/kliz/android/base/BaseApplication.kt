@@ -35,6 +35,14 @@ abstract class BaseApplication(private val appLogTag : String) : Application() {
         }
     }
 
+    /*private fun checkPlayServices() {
+        when(SystemUtils.getPlayServicesStatus(this)) {
+            PlayServicesStatus.ACTIVE -> logger.debug("Play Services are active!")
+            PlayServicesStatus.ERROR_BUT_USER_CAN_FIX -> logger.warn("Play Services are not active, but user can fix it! Some backend features may not work!")
+            PlayServicesStatus.ERROR_BUT_USER_CANT_FIX -> logger.error("Play Services are not active!! This is a problem!")
+        }
+    }*/
+
     private fun setupLogs() = run { Timber.plant(Timber.DebugTree()) }
     private fun printDeviceInfo() = run { logger.verboseArray(SystemUtils.getDeviceInformationArray()) }
     fun setMainLocale(locale : Locale) = run { resources.configuration.setLocale(locale) }
