@@ -10,8 +10,17 @@ import javax.swing.JFileChooser
 
 object FileUtils {
 
+    /**
+     * Check if file can be read and write.
+     * @param f file to check
+     * @return true if can read and write, false otherwise
+     * @throws SecurityException if cannot read or write
+     */
     private fun canReadWrite(f : File) : Boolean = f.canRead() && f.canWrite()
+
     fun easyTextWrite(fileToWrite : File, textToWrite : String) = fileToWrite.writeText(textToWrite)
+
+
     fun easyReadFile(path : File) = path.readText()
     fun check(directory: File) : Boolean = if(!canReadWrite(directory)) throw IOException("Cannot read or write in selected directory.") else true
     fun easyDeleteFile(fileToDelete : File) = fileToDelete.delete()
@@ -40,8 +49,8 @@ object FileUtils {
         }
     }
 
-    fun openFileAwtFileDialog() : File? {
-        val dialog = FileDialog(null as Frame?, "Select TS4SM folder destination")
+    fun openFileAwtFileDialog(windowTitle : String) : File? {
+        val dialog = FileDialog(null as Frame?, windowTitle)
         dialog.mode = FileDialog.LOAD
         dialog.isMultipleMode = false
         dialog.isVisible = true
